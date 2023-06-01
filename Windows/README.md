@@ -49,7 +49,7 @@ It is important to analyze the network communication betweeen the server under i
 
 <details><summary><b>Look out for Network connections and Port</b></summary>
   ```sh
-  Get-NetTCPConnection | Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, State, OwningProcess, @{Name="Process";Expression={(Get-Process -Id $_.OwningProcess).ProcessName}}
+  Get-NetTCPConnection | Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, State, OwningProcess, @{Name="Process";Expression={(Get-Process -Id   $_.OwningProcess).ProcessName}}
   ```
 </details>
 
