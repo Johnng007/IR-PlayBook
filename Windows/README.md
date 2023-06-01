@@ -13,10 +13,18 @@ It is important to analyze the network communication betweeen the server under i
   ```sh
    netstat -naob 5
   ```
-  </details>
-  <details><summary><b>Examine built-in firewall</b></summary>
+</details>
+  
+<details><summary><b>Examine built-in firewall</b></summary>
   
     ```sh
      netsh advfirewall show currentprofile
     ```
+</details>
+
+<details><summary><b>Check the DNS Cache</b></summary>
+  
+  ```sh
+  Get-DnsClientCache | select Entry,Name, Status, TimeToLive
+  ```
 </details>
