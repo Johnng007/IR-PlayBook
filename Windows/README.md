@@ -9,4 +9,7 @@ It is important to analyze the network communication betweeen the server under i
   ```sh
   netstat -naob | more
   ```
-   
+   Autorefresh every 5 secs
+  ```sh
+   netstat -naob 5
+  ```
