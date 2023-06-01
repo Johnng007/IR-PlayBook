@@ -13,3 +13,7 @@ It is important to analyze the network communication betweeen the server under i
   ```sh
    netstat -naob 5
   ```
+  <details><summary><b>Examine built-in firewall</b></summary>
+    ```sh
+     netsh advfirewall show currentprofile
+    ```
