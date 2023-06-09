@@ -290,3 +290,48 @@ These are uncategorized but are worth a look...etc
   Get-ChildItem C:\Users\*\Documents\* -recurse  |  select  PSChildName, Root, Name, FullName, Extension, CreationTimeUTC, LastAccessTimeUTC, LastWriteTimeUTC, Attributes | where {$_.extension -eq '.exe'}
   ```
 </details>
+
+### Users & User's activities
+Having insight on users and their activites provides gives a headway on your investigation.
+
+<details><summary><b>RDP Logons</b></summary>
+
+  ```sh
+  Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4624} | Where-Object { $_.Message -like "*LogonType`:` 10*" } | ForEach-Object { $event = $_; $xml = [xml]$event.ToXml(); $xml.Event.EventData.Data | Where-Object { $_.Name -eq 'TargetUserName' } | Select-Object -ExpandProperty '#text'}
+  ```
+</details>
+
+<details><summary><b>Password Reset events</b></summary>
+
+  ```sh
+  Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4724} | ForEach-Object { $event = $_; $xml = [xml]$event.ToXml(); $xml.Event.EventData.Data | Where-Object { $_.Name -eq 'TargetUserName' } | Select-Object -ExpandProperty '#text'}
+  ```
+</details>
+
+<details><summary><b>Added users to Group</b></summary>
+
+  ```sh
+  Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4728} | ForEach-Object { $event = $_; $xml = [xml]$event.ToXml(); $xml.Event.EventData.Data | Where-Object { $_.Name -eq 'TargetUserName' } | Select-Object -ExpandProperty '#text'}
+  ```
+</details>
+
+<details><summary><b>List all RDP Connections</b></summary>
+
+  ```sh
+  Get-WinEvent -LogName Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational
+  ```
+</details>
+
+<details><summary><b>Successful RDP Connections</b></summary>
+
+  ```sh
+  Get-EventLog security -after (Get-date -hour 0 -minute 0 -second 0) | ?{$_.eventid -eq 4624 -and $_.Message -match 'logon type:\s+(10)\s'} | Out-GridView
+  ```
+</details>
+
+<details><summary><b>Active Logon Sessions</b></summary>
+
+  ```sh
+  qwinsta
+  ```
+</details>
