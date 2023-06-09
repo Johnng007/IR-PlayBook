@@ -1,2 +1,2 @@
 # Incidence Response PlayBook
-Windows Incidence Response PlayBook
+Incidence Response PlayBook
